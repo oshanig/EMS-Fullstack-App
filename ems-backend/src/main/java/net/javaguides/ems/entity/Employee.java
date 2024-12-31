@@ -1,13 +1,12 @@
 package net.javaguides.ems.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Getter
 @Setter
-@NoArgsConstructor
+//@NoArgsConstructor
 //@AllArgsConstructor
 @Entity
 @Table(name = "employees")
@@ -18,12 +17,15 @@ public class Employee {
     private Long id;
 
     @Column(name = "first_name")
+    @NotBlank(message = "First Name is Required")
     private String firstName;
 
     @Column(name = "last_name")
+    @NotBlank(message = "Last Name is Required")
     private String lastName;
 
     @Column(name = "email_id",nullable = false,unique = true)
+    @NotBlank(message = "Email is required")
     private String email;
 
     public Employee() {

@@ -63,32 +63,55 @@ useEffect(() => {
     let valid = true;
 
     const errorsCopy = {... errors}
+    //Character Limit max - and approriate symbols in name 
+    const namePattern = /^[a-zA-z]{1,15}$/;
 
-    if(firstName.trim()){
-      errorsCopy.firstName = ''
-    } else {
-      errorsCopy.firstName = 'First name is required';
-      valid = false; 
+    //!firstName.trim() - mean that there are NO characters 
+    if(!firstName.trim()){
+      errorsCopy.firstName = 'First Name is required';
+      valid = false;
+    } else if (firstName.length > 15) {
+      errorsCopy.firstName = 'First Name is too long - must be between 1-15 characters';
+      valid = false;
+    } else if(!namePattern.test(firstName)){
+      errorsCopy.firstName = 'Invalid first name characters used';
+      valid = false;
+    } else{
+      //True
+      errorsCopy.firstName = '';
     }
 
-    if(lastName.trim()){
-      errorsCopy.lastName = ''
-    } else {
-      errorsCopy.lastName = 'Last name is required';
-      valid = false; 
+    if(!lastName.trim()){
+      errorsCopy.lastName = 'Last Name is required'
+      valid = false;
+    } else if(lastName.length > 15){
+      errorsCopy.lastName = 'Last Name is too long - must be between 1-15 characters'
+      valid = false;
+    } else if(!namePattern.test(lastName)){
+      errorsCopy.lastName = 'Invalid last name characters used'
+      valid = false;
+    }else{
+      //True
+      errorsCopy.lastName = '';
     }
 
-    if(email.trim()){
-      errorsCopy.email = ''
-    } else {
+    const emailPattern =  /^[^\s@]+@[^\s@]+\.(?:com|ca)$/;
+    if(!email.trim()){
       errorsCopy.email = 'Email is required';
-      valid = false; 
+      valid = false;
+    } else if (!emailPattern.test(email)){
+      errorsCopy.email = 'Invalid email format'
+      valid = false;
+    } else{
+      //True
+      errorsCopy.email = '';
     }
-    
+
     setErrors(errorsCopy);
 
     return valid;
-  }
+} 
+
 
   function pageTitle(){
     if(id){
