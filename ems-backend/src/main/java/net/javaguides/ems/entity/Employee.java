@@ -1,7 +1,9 @@
 package net.javaguides.ems.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -17,15 +19,18 @@ public class Employee {
     private Long id;
 
     @Column(name = "first_name")
+    @Size(max = 15, message = "Last name must not exceed 50 characters")
     @NotBlank(message = "First Name is Required")
     private String firstName;
 
     @Column(name = "last_name")
+    @Size(max = 15, message = "Last name must not exceed 50 characters")
     @NotBlank(message = "Last Name is Required")
     private String lastName;
 
     @Column(name = "email_id",nullable = false,unique = true)
     @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
     public Employee() {
